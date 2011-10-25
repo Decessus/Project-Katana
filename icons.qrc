@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/">
+        <file>icons/loading.gif</file>
+        <file>icons/home-icon.png</file>
+        <file>icons/settings-icon.png</file>
+        <file>icons/close_icon.gif</file>
+        <file>fonts/ubuntu/Ubuntu-R.ttf</file>
+    </qresource>
+</RCC>
