@@ -123,7 +123,6 @@ MainWindow::MainWindow(QWidget *parent) :
     dragBar->setParent(ui->titleWidget);
     dragBar->lower();
     ui->label->lower();
-    this->grabMouse();
 
     ui->scrollAreaWidgetContents_3->setAcceptDrops(true);
     ui->scrollArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -551,7 +550,6 @@ void MainWindow::onEditingFinished() {
 
 void MainWindow::on_lineEdit_textEdited(const QString &arg1)
 {
-    ui->lineEdit->setFocusPolicy(Qt::StrongFocus);
     if(urlTimer.isActive()) {
         urlTimer.stop();
         urlTimer.start(500);
@@ -616,4 +614,24 @@ void MainWindow::on_actionApplication_Settings_triggered()
 
     settings->init(settingsMap);
     settings->show();
+}
+
+void MainWindow::on_minimizeButton_clicked()
+{
+    this->setWindowState(Qt::WindowMinimized);
+}
+
+void MainWindow::on_maximizeButton_clicked()
+{
+    if (this->windowState() == Qt::WindowMaximized) {
+        ui->maximizeButton->setIcon(this->style()->standardIcon(QStyle::SP_TitleBarMaxButton));
+        this->resize(appSettings.value(QString("restore_size"),QSize(700,550)).toSize());
+        this->setWindowState(Qt::WindowNoState);
+    }
+
+    else {
+        ui->maximizeButton->setIcon(this->style()->standardIcon(QStyle::SP_TitleBarNormalButton));
+        appSettings.setValue(QString("restore_size"),this->size());
+        this->setWindowState(Qt::WindowMaximized);
+    }
 }
